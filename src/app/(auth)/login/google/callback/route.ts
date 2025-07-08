@@ -63,6 +63,7 @@ if(existingUser !== null){
 // When a user does not exist, create a new user and session
 const user = await prisma.user.create({
     data:{
+        email,
         googleId: googleUserId,
         username: username,
         avatarUrl: avatarUrl,
