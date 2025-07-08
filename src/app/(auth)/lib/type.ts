@@ -13,7 +13,7 @@ export type  LuciaUser= {
     avatarUrl?: string | null;
     email?: string | null;
     id: string;
-    name:string;
+    name?:string;
     username?: string | null;
     isVerified:boolean;
 }
