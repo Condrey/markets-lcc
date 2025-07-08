@@ -29,7 +29,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const {user,session } = await validateRequest()
-  if(!user) redirect('/login')
+  // if(!user) redirect('/login')
   return (
     <html lang="en" suppressHydrationWarning>
       <body
