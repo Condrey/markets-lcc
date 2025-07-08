@@ -134,7 +134,9 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   isWelcomed: 'isWelcomed',
   isVerified: 'isVerified',
-  emailVerified: 'emailVerified'
+  emailVerified: 'emailVerified',
+  googleId: 'googleId',
+  githubId: 'githubId'
 };
 
 exports.Prisma.EmailVerificationTokenScalarFieldEnum = {

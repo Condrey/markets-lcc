@@ -29,6 +29,8 @@ model User {
   isWelcomed              Boolean                  @default(false)
   isVerified              Boolean                  @default(false)
   emailVerified           Boolean                  @default(false)
+  googleId                String?                  @unique
+  githubId                String?                  @unique
   emailVerificationTokens EmailVerificationToken[]
   sessions                Session[]
   employees               Employee[]

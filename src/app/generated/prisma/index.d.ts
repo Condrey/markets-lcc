@@ -1355,6 +1355,8 @@ export namespace Prisma {
     isWelcomed: boolean | null
     isVerified: boolean | null
     emailVerified: boolean | null
+    googleId: string | null
+    githubId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1372,6 +1374,8 @@ export namespace Prisma {
     isWelcomed: boolean | null
     isVerified: boolean | null
     emailVerified: boolean | null
+    googleId: string | null
+    githubId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1389,6 +1393,8 @@ export namespace Prisma {
     isWelcomed: number
     isVerified: number
     emailVerified: number
+    googleId: number
+    githubId: number
     _all: number
   }
 
@@ -1408,6 +1414,8 @@ export namespace Prisma {
     isWelcomed?: true
     isVerified?: true
     emailVerified?: true
+    googleId?: true
+    githubId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1425,6 +1433,8 @@ export namespace Prisma {
     isWelcomed?: true
     isVerified?: true
     emailVerified?: true
+    googleId?: true
+    githubId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1442,6 +1452,8 @@ export namespace Prisma {
     isWelcomed?: true
     isVerified?: true
     emailVerified?: true
+    googleId?: true
+    githubId?: true
     _all?: true
   }
 
@@ -1532,6 +1544,8 @@ export namespace Prisma {
     isWelcomed: boolean
     isVerified: boolean
     emailVerified: boolean
+    googleId: string | null
+    githubId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1566,6 +1580,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: boolean
+    githubId?: boolean
     emailVerificationTokens?: boolean | User$emailVerificationTokensArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     employees?: boolean | User$employeesArgs<ExtArgs>
@@ -1587,6 +1603,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: boolean
+    githubId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1604,6 +1622,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: boolean
+    githubId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1621,9 +1641,11 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: boolean
+    githubId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "username" | "avatarUrl" | "telephone" | "passwordHash" | "bio" | "createdAt" | "updatedAt" | "role" | "isWelcomed" | "isVerified" | "emailVerified", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "username" | "avatarUrl" | "telephone" | "passwordHash" | "bio" | "createdAt" | "updatedAt" | "role" | "isWelcomed" | "isVerified" | "emailVerified" | "googleId" | "githubId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     emailVerificationTokens?: boolean | User$emailVerificationTokensArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1655,6 +1677,8 @@ export namespace Prisma {
       isWelcomed: boolean
       isVerified: boolean
       emailVerified: boolean
+      googleId: string | null
+      githubId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2095,6 +2119,8 @@ export namespace Prisma {
     readonly isWelcomed: FieldRef<"User", 'Boolean'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
+    readonly googleId: FieldRef<"User", 'String'>
+    readonly githubId: FieldRef<"User", 'String'>
   }
     
 
@@ -6906,7 +6932,9 @@ export namespace Prisma {
     role: 'role',
     isWelcomed: 'isWelcomed',
     isVerified: 'isVerified',
-    emailVerified: 'emailVerified'
+    emailVerified: 'emailVerified',
+    googleId: 'googleId',
+    githubId: 'githubId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -7097,6 +7125,8 @@ export namespace Prisma {
     isWelcomed?: BoolFilter<"User"> | boolean
     isVerified?: BoolFilter<"User"> | boolean
     emailVerified?: BoolFilter<"User"> | boolean
+    googleId?: StringNullableFilter<"User"> | string | null
+    githubId?: StringNullableFilter<"User"> | string | null
     emailVerificationTokens?: EmailVerificationTokenListRelationFilter
     sessions?: SessionListRelationFilter
     employees?: EmployeeListRelationFilter
@@ -7117,6 +7147,8 @@ export namespace Prisma {
     isWelcomed?: SortOrder
     isVerified?: SortOrder
     emailVerified?: SortOrder
+    googleId?: SortOrderInput | SortOrder
+    githubId?: SortOrderInput | SortOrder
     emailVerificationTokens?: EmailVerificationTokenOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     employees?: EmployeeOrderByRelationAggregateInput
@@ -7127,6 +7159,8 @@ export namespace Prisma {
     email?: string
     username?: string
     telephone?: string
+    googleId?: string
+    githubId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -7143,7 +7177,7 @@ export namespace Prisma {
     emailVerificationTokens?: EmailVerificationTokenListRelationFilter
     sessions?: SessionListRelationFilter
     employees?: EmployeeListRelationFilter
-  }, "id" | "email" | "username" | "telephone">
+  }, "id" | "email" | "username" | "telephone" | "googleId" | "githubId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7160,6 +7194,8 @@ export namespace Prisma {
     isWelcomed?: SortOrder
     isVerified?: SortOrder
     emailVerified?: SortOrder
+    googleId?: SortOrderInput | SortOrder
+    githubId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -7183,6 +7219,8 @@ export namespace Prisma {
     isWelcomed?: BoolWithAggregatesFilter<"User"> | boolean
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    googleId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    githubId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type EmailVerificationTokenWhereInput = {
@@ -7425,6 +7463,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     employees?: EmployeeCreateNestedManyWithoutUserInput
@@ -7445,6 +7485,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
@@ -7465,6 +7507,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     employees?: EmployeeUpdateManyWithoutUserNestedInput
@@ -7485,6 +7529,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
@@ -7505,6 +7551,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -7522,6 +7570,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -7539,6 +7589,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EmailVerificationTokenCreateInput = {
@@ -7868,6 +7920,8 @@ export namespace Prisma {
     isWelcomed?: SortOrder
     isVerified?: SortOrder
     emailVerified?: SortOrder
+    googleId?: SortOrder
+    githubId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -7885,6 +7939,8 @@ export namespace Prisma {
     isWelcomed?: SortOrder
     isVerified?: SortOrder
     emailVerified?: SortOrder
+    googleId?: SortOrder
+    githubId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -7902,6 +7958,8 @@ export namespace Prisma {
     isWelcomed?: SortOrder
     isVerified?: SortOrder
     emailVerified?: SortOrder
+    googleId?: SortOrder
+    githubId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -8709,6 +8767,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
     employees?: EmployeeCreateNestedManyWithoutUserInput
   }
@@ -8728,6 +8788,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8763,6 +8825,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
     employees?: EmployeeUpdateManyWithoutUserNestedInput
   }
@@ -8782,6 +8846,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8801,6 +8867,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenCreateNestedManyWithoutUserInput
     employees?: EmployeeCreateNestedManyWithoutUserInput
   }
@@ -8820,6 +8888,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
     employees?: EmployeeUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8855,6 +8925,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUpdateManyWithoutUserNestedInput
     employees?: EmployeeUpdateManyWithoutUserNestedInput
   }
@@ -8874,6 +8946,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
     employees?: EmployeeUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -8893,6 +8967,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -8912,6 +8988,8 @@ export namespace Prisma {
     isWelcomed?: boolean
     isVerified?: boolean
     emailVerified?: boolean
+    googleId?: string | null
+    githubId?: string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -8970,6 +9048,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -8989,6 +9069,8 @@ export namespace Prisma {
     isWelcomed?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    githubId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerificationTokens?: EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
