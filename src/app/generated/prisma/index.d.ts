@@ -7157,15 +7157,15 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
-    username?: string
-    telephone?: string
     googleId?: string
     githubId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
+    username?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    telephone?: StringNullableFilter<"User"> | string | null
     passwordHash?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -7177,7 +7177,7 @@ export namespace Prisma {
     emailVerificationTokens?: EmailVerificationTokenListRelationFilter
     sessions?: SessionListRelationFilter
     employees?: EmployeeListRelationFilter
-  }, "id" | "email" | "username" | "telephone" | "googleId" | "githubId">
+  }, "id" | "email" | "googleId" | "githubId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder

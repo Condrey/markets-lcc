@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@/app/generated/prisma";
 import { NumberInput } from "@/components/number-input/number-input";
 import {
   Form,
@@ -13,6 +14,7 @@ import LoadingButton from "@/components/ui/loading-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { staffLoginSchema, StaffLoginValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ky from "ky";
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useTransition } from "react";
@@ -32,13 +34,14 @@ export default function LoginForm() {
 
   async function onSubmit(values: StaffLoginValues) {
     startTransition(async () => {
-      const { error } = await loginAction(values!);
-      if (error) {
-        toast.error("LOGIN ERROR", {
+      
+       const {error} = await loginAction(values);
+
+       
+     toast.error("IPPS LOGIN ERROR", {
           position: "top-center",
-          description: error,
+          description: `${error}`,
         });
-      }
     });
   }
   return (
