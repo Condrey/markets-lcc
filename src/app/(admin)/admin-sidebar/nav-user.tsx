@@ -32,7 +32,7 @@ const {user} = useSession()
 const {navigateOnclickWithPathnameWithoutUpdate} = useCustomSearchParams()
 const [isPending,startTransition]=useTransition()
 if(!user) return null;
-const initials =user.name.split(" ").map(value=>value.charAt(0).toUpperCase()).join()
+const initials =(user.name||'UE').split(" ").map(value=>value.charAt(0).toUpperCase()).join()
   return (
     <SidebarMenu>
       <SidebarMenuItem>
