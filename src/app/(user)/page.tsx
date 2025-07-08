@@ -1,12 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
+import { validateRequest } from "@/auth";
+import { redirect } from "next/navigation";
+import { Role } from "../generated/prisma";
+import TopAppBar from "./top-app-bar";
 
-export default function Home() {
+export default async function Home() {
+  const { user } = await validateRequest();
+  const isAdmin = !!user && user.role !== Role.USER;
+  if (isAdmin) redirect("/admin");
   return (
     <div>
-      <Link href={'/admin'}>
-      Admin</Link>
+      <TopAppBar />
+      <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
   );
 }

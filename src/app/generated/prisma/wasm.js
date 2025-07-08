@@ -120,9 +120,81 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  username: 'username',
+  avatarUrl: 'avatarUrl',
+  telephone: 'telephone',
+  passwordHash: 'passwordHash',
+  bio: 'bio',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  role: 'role',
+  isWelcomed: 'isWelcomed',
+  isVerified: 'isVerified',
+  emailVerified: 'emailVerified'
+};
+
+exports.Prisma.EmailVerificationTokenScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expires: 'expires'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  lastVerifiedAt: 'lastVerifiedAt',
+  secretHash: 'secretHash',
+  role: 'role'
+};
+
+exports.Prisma.EmployeeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  marketId: 'marketId',
+  ippsNumber: 'ippsNumber'
+};
+
+exports.Prisma.MarketScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  location: 'location',
+  mapCoordinates: 'mapCoordinates',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  USER: 'USER',
+  ADMIN: 'ADMIN',
+  MODERATOR: 'MODERATOR'
+};
 
 exports.Prisma.ModelName = {
-
+  User: 'User',
+  EmailVerificationToken: 'EmailVerificationToken',
+  Session: 'Session',
+  Employee: 'Employee',
+  Market: 'Market'
 };
 
 /**

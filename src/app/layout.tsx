@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import ReactQueryProvider from "@/components/react-query-provider";
+import { validateRequest } from "@/auth";
+import { redirect } from "next/navigation";
+import SessionProvider from "./session-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,11 +23,13 @@ export const metadata: Metadata = {
   description: "A Next.js application for managing markets and users.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const {user,session } = await validateRequest()
+  if(!user) redirect('/login')
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -34,7 +41,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+                  <ReactQueryProvider><SessionProvider value={{session,user}}>{children}</SessionProvider></ReactQueryProvider>
+
+            <Toaster richColors />
           </ThemeProvider>
       </body>
     </html>

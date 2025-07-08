@@ -29,11 +29,6 @@ import {
 
 // This is sample data.
 const data = {
-  user: {
-    name: "Omondi George",
-    email: "omosh@gmail.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   markets: [
     {
       name: "Lira Main Market",
@@ -57,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser  />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

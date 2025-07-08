@@ -13,3 +13,76 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                      String                   @id @default(uuid())
+  email                   String                   @unique
+  name                    String?
+  username                String?                  @unique
+  avatarUrl               String?
+  telephone               String?                  @unique
+  passwordHash            String?
+  bio                     String?
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  role                    Role                     @default(USER)
+  isWelcomed              Boolean                  @default(false)
+  isVerified              Boolean                  @default(false)
+  emailVerified           Boolean                  @default(false)
+  emailVerificationTokens EmailVerificationToken[]
+  sessions                Session[]
+  employees               Employee[]
+
+  @@map("users")
+}
+
+model EmailVerificationToken {
+  id      String @id @default(uuid())
+  userId  String
+  expires BigInt
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verifications")
+}
+
+model Session {
+  id             String   @id @default(uuid())
+  userId         String
+  expiresAt      DateTime
+  createdAt      DateTime @default(now())
+  lastVerifiedAt DateTime @default(now())
+  secretHash     String   @default(uuid())
+  role           Role     @default(USER)
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Employee {
+  id         String  @id @default(uuid())
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String
+  market     Market? @relation(fields: [marketId], references: [id])
+  marketId   String?
+  ippsNumber String  @unique
+
+  @@map("employees")
+}
+
+model Market {
+  id             String     @id @default(uuid())
+  name           String     @unique
+  location       String
+  mapCoordinates String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  employees      Employee[]
+
+  @@map("markets")
+}
+
+enum Role {
+  USER
+  ADMIN
+  MODERATOR
+}
