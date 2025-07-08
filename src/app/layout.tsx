@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/components/react-query-provider";
 import { validateRequest } from "@/auth";
-import { redirect } from "next/navigation";
+import { redirect, unauthorized } from "next/navigation";
 import SessionProvider from "./session-provider";
 
 const geistSans = Geist({
@@ -29,7 +29,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const {user,session } = await validateRequest()
-  // if(!user) redirect('/login')
+  if(!user) unauthorized()
   return (
     <html lang="en" suppressHydrationWarning>
       <body
