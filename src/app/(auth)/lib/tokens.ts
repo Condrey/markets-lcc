@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { deleteSessionById, getSessionById, SessionValidationResult } from "./session";
 import { constantTimeEqual, generateSecureRandomString, hashSecret, stringToUint8Array } from "./utils";
-import { LuciaSession } from "./type";
+import { LuciaSession, LuciaUser } from "./type";
 
 const activityCheckIntervalSeconds = 60 * 60; // 1 hour
 
@@ -60,7 +60,7 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 			data: { expiresAt: session.expiresAt }
 		});
 	};
-	return { session:session satisfies LuciaSession, user: session.user   };
+	return { session:session satisfies LuciaSession, user: session.user as LuciaUser  };
 }
 
 export async function deleteSessionTokenCookie(): Promise<void> {
