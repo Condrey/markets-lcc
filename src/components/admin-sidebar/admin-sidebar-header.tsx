@@ -33,7 +33,7 @@ export default function AdminSidebarHeader({
                 </BreadcrumbItem>
 
                 {crumbs.map((crumb, index, array) => (
-                  <div className="flex gap-1" key={crumb.label}>
+                  <div className="flex items-center gap-1" key={crumb.label}>
                     {index !== array.length + 1 && (
                       <BreadcrumbSeparator className="hidden md:block" />
                     )}

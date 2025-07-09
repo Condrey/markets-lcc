@@ -39,7 +39,7 @@ export const useMarketsColumn: ColumnDef<MarketData>[] = [
     ),
     cell:({row})=>{
         const market = row.original
-        return <div className="flex gap-0.5">
+        return <div className="flex gap-2">
             <ButtonAddEditMarket marketToEdit={market} variant={'default'} size='icon'>
                 <Edit3Icon/>
             </ButtonAddEditMarket>

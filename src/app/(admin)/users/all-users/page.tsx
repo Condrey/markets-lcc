@@ -2,23 +2,24 @@ import DataTableLoadingSkeleton from "@/components/data-table/data-table-loading
 import { Metadata } from "next";
 import { Suspense } from "react";
 import AdminSidebarContainer from "@/components/admin-sidebar/admin-sidebar-container";
-import { getAllMarkets } from "./action";
-import ListOfMarkets from "./list-of-markets";
+import { getAllUsers } from "./action";
+// import ListOfUsers from "./list-of-users";
 
 export const metadata: Metadata = {
-  title: "Markets",
+  title: "Users",
 };
 export default function Page() {
   return (
-    <AdminSidebarContainer crumbs={[{ label: "Markets", href: "/markets" }]}>
+    <AdminSidebarContainer crumbs={[{ label: "Users", href: "/users" },{ label: "All Users", href: "/users/all-users" }]}>
       <Suspense fallback={<DataTableLoadingSkeleton />}>
-        <Markets />
+        <Users />
       </Suspense>
     </AdminSidebarContainer>
   );
 }
 
-async function Markets() {
-  const markets = await getAllMarkets();
-  return <ListOfMarkets markets={markets} />;
+async function Users() {
+  const users = await getAllUsers();
+  return <span>users</span>
+//   <ListOfUsers users={users} />;
 }
