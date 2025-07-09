@@ -88,19 +88,22 @@ function FormItem({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function FormLabel({
-  className,
+  className,required=false,
   ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
+}: React.ComponentProps<typeof LabelPrimitive.Root>&{required?:boolean}) {
   const { error, formItemId } = useFormField()
 
   return (
     <Label
       data-slot="form-label"
       data-error={!!error}
-      className={cn("data-[error=true]:text-destructive", className)}
+      className={cn("data-[error=true]:text-destructive",
+         className)}
       htmlFor={formItemId}
       {...props}
-    />
+    >
+      {props.children} {required&&<span className="text-destructive">*</span>}
+    </Label>
   )
 }
 
@@ -129,10 +132,22 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-muted-foreground text-xs italic", className)}
       {...props}
     />
   )
+}
+
+function FormFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      className={cn(
+        (className = "flex items-center justify-end gap-4"),
+        className,
+      )}
+      {...props}
+    />
+  );
 }
 
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
@@ -147,7 +162,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
+      className={cn("text-destructive text-xs italic", className)}
       {...props}
     >
       {body}
@@ -163,5 +178,5 @@ export {
   FormControl,
   FormDescription,
   FormMessage,
-  FormField,
+  FormField,FormFooter
 }

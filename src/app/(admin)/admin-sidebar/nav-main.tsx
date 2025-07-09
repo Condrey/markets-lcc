@@ -25,6 +25,7 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { NavMainItem } from "@/lib/types";
+import Link from "next/link";
 
 const items: NavMainItem[] = [
   {
@@ -128,9 +129,11 @@ export function NavMain() {
             >
               <SidebarMenuItem>
                 {!subItems.length ? (
-                  <SidebarMenuButton tooltip={item.title}>
+                  <SidebarMenuButton tooltip={item.title} asChild>
+                 <Link href={item.url}>
                     {Icon && <Icon />}
                     <span>{item.title}</span>
+                 </Link>
                   </SidebarMenuButton>
                 ) : (
                   <CollapsibleTrigger asChild>
@@ -146,9 +149,9 @@ export function NavMain() {
                     {subItems?.map((subItem) => (
                       <SidebarMenuSubItem key={subItem.title}>
                         <SidebarMenuSubButton asChild>
-                          <a href={subItem.url}>
+                          <Link href={subItem.url}>
                             <span>{subItem.title}</span>
-                          </a>
+                          </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
                     ))}

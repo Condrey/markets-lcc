@@ -100,6 +100,15 @@ export const employeeSchema = z.object({
 });
 export type EmployeeSchema = z.infer<typeof employeeSchema>;
 
+// Market 
+export const marketSchema = z.object({
+  id:z.string().optional(),
+  name: requiredString.min(1,'The market name is a requirement.'),
+  location: requiredString.min(1,'The market location is a requirement.'),
+  mapCoordinates: z.string().optional()
+})
+export type MarketSchema = z.infer<typeof marketSchema>
+
 
 // miscellaneous
 export const emailSchema = z.object({ email: z.string().trim().email() });

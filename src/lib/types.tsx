@@ -1,3 +1,4 @@
+import { Prisma } from "@/app/generated/prisma";
 import { LucideIcon } from "lucide-react";
 
 export type Crumb ={
@@ -22,3 +23,7 @@ export type NavMainItem=  {
     url: string
     icon: LucideIcon
   }
+
+  // Markets 
+  export const marketDataInclude = {} satisfies Prisma.MarketInclude
+  export type MarketData = Prisma.MarketGetPayload<{include: typeof marketDataInclude}>
