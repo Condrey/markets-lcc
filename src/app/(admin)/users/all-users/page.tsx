@@ -10,7 +10,12 @@ export const metadata: Metadata = {
 };
 export default function Page() {
   return (
-    <AdminSidebarContainer crumbs={[{ label: "Users", href: "/users" },{ label: "All Users", href: "/users/all-users" }]}>
+    <AdminSidebarContainer
+      crumbs={[
+        { label: "Users", href: "/users" },
+        { label: "All Users", href: "/users/all-users" },
+      ]}
+    >
       <Suspense fallback={<DataTableLoadingSkeleton />}>
         <Users />
       </Suspense>
@@ -20,6 +25,6 @@ export default function Page() {
 
 async function Users() {
   const users = await getAllUsers();
-  return <span>users</span>
-//   <ListOfUsers users={users} />;
+  return <span>users</span>;
+  //   <ListOfUsers users={users} />;
 }

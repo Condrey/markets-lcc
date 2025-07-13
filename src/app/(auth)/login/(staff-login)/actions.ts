@@ -10,7 +10,7 @@ import { generateSessionToken, setSessionTokenCookie } from "../../lib/tokens";
 
 export async function loginAction(
   values: StaffLoginValues,
-  nextUrl?: string
+  nextUrl?: string,
 ): Promise<{ error: string }> {
   const { ippsNumber } = staffLoginSchema.parse(values);
   const response = await ky.post(
@@ -18,7 +18,7 @@ export async function loginAction(
     {
       body: JSON.stringify(values),
       throwHttpErrors: false,
-    }
+    },
   );
   if (response.ok) {
     const {
@@ -104,7 +104,7 @@ export async function loginAction(
     redirect(
       existingUser.isVerified
         ? destination
-        : `/user-verification/${existingUser.id}`
+        : `/user-verification/${existingUser.id}`,
     );
   }
   const text = await response.text();

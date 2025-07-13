@@ -1,7 +1,7 @@
 import { webName } from "@/lib/utils";
 import { sendMail } from "../../(email)/nodemailer";
 import { validateRequest } from "@/auth";
-import { Role,  } from "@/app/generated/prisma";
+import { Role } from "@/app/generated/prisma";
 
 export const sendWelcomeRemarksEmail = async ({
   email,
@@ -10,13 +10,14 @@ export const sendWelcomeRemarksEmail = async ({
   email: string;
   name: string;
 }) => {
-  const {user} = await validateRequest()
-  const isAdmin =!!user&& user.role !== Role.USER
+  const { user } = await validateRequest();
+  const isAdmin = !!user && user.role !== Role.USER;
   const organization = webName + " Management Team";
   const senderName = "Ogwang Coundrey James";
   const senderTitle = "I.T Support team";
   const subject = "Welcome remarks!";
-  const htmlContent = !isAdmin? `<!DOCTYPE html>
+  const htmlContent = !isAdmin
+    ? `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -98,7 +99,7 @@ export const sendWelcomeRemarksEmail = async ({
 <body>
   <div class="container">
     <h1 style="color: #f59e0b;">Welcome to Your Market Oasis!</h1>
-    <p>Hey there, ${user?.name||'Superstar'}! </p>
+    <p>Hey there, ${user?.name || "Superstar"}! </p>
     <p>We're beyond thrilled to have you join our vibrant community! Our platform is your new best friend—helping you effortlessly keep track of payments, taxes, rent, and your precious stall and space ownership documents. Plus, you'll get friendly notifications to keep you always in the loop.</p>
     <div class="features">
       <div class="feature-item">Seamlessly monitor your payments, taxes, and rent.</div>
@@ -120,7 +121,8 @@ export const sendWelcomeRemarksEmail = async ({
 </html>
 
 
-`:`<!DOCTYPE html>
+`
+    : `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -202,7 +204,7 @@ export const sendWelcomeRemarksEmail = async ({
 <body>
   <div class="container">
     <h1 style="color: #f59e0b;">Welcome to Your Admin Command Center!</h1>
-    <p>Greetings,${user.name|| 'Market Master, Assistant, or Market Agent'}!</p>
+    <p>Greetings,${user.name || "Market Master, Assistant, or Market Agent"}!</p>
     <p>We're excited to have you take the helm of our market management platform. As an admin, you have the power to oversee operations, streamline processes, and ensure everything runs like clockwork. From managing payments and taxes to verifying stall ownership and sending critical notifications, this platform is your ultimate tool for market mastery.</p>
     <div class="features">
       <div class="feature-item">Effortlessly oversee payments, taxes, and rent collection.</div>

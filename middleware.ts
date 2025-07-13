@@ -4,12 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(request: NextRequest): Promise<NextResponse> {
   try {
     console.log("Middleware triggered for:", request.url);
-    const { user } = await validateRequest();
-   if ( !request.nextUrl.pathname.startsWith("/login")) {
-  const loginUrl = new URL("/login", request.url);
-  loginUrl.searchParams.set("next", request.nextUrl.pathname + request.nextUrl.search);
-  return NextResponse.redirect(loginUrl);
-}
+    const { user, session } = await validateRequest();
+    if (!request.nextUrl.pathname.startsWith("/login")) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set(
+        "next",
+        request.nextUrl.pathname + request.nextUrl.search,
+      );
+      return NextResponse.redirect(loginUrl);
+    }
 
     if (request.method === "GET") {
       const response = NextResponse.next();

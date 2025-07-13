@@ -9,7 +9,7 @@ import { generateSessionToken, setSessionTokenCookie } from "../../lib/tokens";
 
 export async function loginAction(
   credentials: LoginValues,
-  nextUrl?: string
+  nextUrl?: string,
 ): Promise<{ error: string }> {
   console.log(credentials);
   const { username, password } = loginSchema.parse(credentials);
@@ -58,9 +58,9 @@ export async function loginAction(
 
   const destination = nextUrl?.startsWith("/") ? nextUrl : "/";
 
-   redirect(
+  redirect(
     existingUser.isVerified
       ? destination
-      : `/user-verification/${existingUser.id}`
+      : `/user-verification/${existingUser.id}`,
   );
 }

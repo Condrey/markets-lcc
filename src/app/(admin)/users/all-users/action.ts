@@ -14,21 +14,22 @@ async function allUsers() {
 export const getAllUsers = cache(allUsers);
 
 export async function upsertUser(user: UserSchema) {
-  const { user:currentUser } = await validateRequest();
+  const { user: currentUser } = await validateRequest();
   const isAuthorized =
     !!currentUser && myPrivileges[currentUser.role].includes(Role.MODERATOR);
 
   if (!isAuthorized) throw new Error("Unauthorized");
 
-  const { id, name, email,telephone,username } = userSchema.parse(user);
+  const { id, name, email, telephone, username } = userSchema.parse(user);
   return await prisma.user.upsert({
     where: { id },
     create: {
       name,
-       email:email!,telephone,username
+      email: email!,
+      telephone,
+      username,
     },
-    update: {   name,
-       email:email!,telephone,username},
+    update: { name, email: email!, telephone, username },
     // include: userDataInclude,
   });
 }

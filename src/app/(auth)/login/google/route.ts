@@ -5,15 +5,16 @@ import { globalGETRateLimit } from "../../lib/request";
 
 export async function GET() {
   if (!globalGETRateLimit()) {
-		return new Response("Too many requests", {
-			status: 429
-		});
-	}
+    return new Response("Too many requests", {
+      status: 429,
+    });
+  }
   const state = generateState();
   const codeVerifier = generateCodeVerifier();
 
   const url = google.createAuthorizationURL(state, codeVerifier, [
-    "openid","profile",
+    "openid",
+    "profile",
     "email",
   ]);
 

@@ -26,13 +26,16 @@ import LoadingButton from "@/components/ui/loading-button";
 import { useTransition } from "react";
 import LogoutButton from "@/app/(auth)/(database)/logout/logout-button";
 
-export  function NavUser() {
+export function NavUser() {
   const { isMobile } = useSidebar();
-const {user} = useSession()
-const {navigateOnclickWithPathnameWithoutUpdate} = useCustomSearchParams()
-const [isPending,startTransition]=useTransition()
-if(!user) return null;
-const initials =(user.name||'UE').split(" ").map(value=>value.charAt(0).toUpperCase()).join()
+  const { user } = useSession();
+  const { navigateOnclickWithPathnameWithoutUpdate } = useCustomSearchParams();
+  const [isPending, startTransition] = useTransition();
+  if (!user) return null;
+  const initials = (user.name || "UE")
+    .split(" ")
+    .map((value) => value.charAt(0).toUpperCase())
+    .join();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -43,7 +46,10 @@ const initials =(user.name||'UE').split(" ").map(value=>value.charAt(0).toUpperC
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatarUrl!} alt={user.username||user.name} />
+                <AvatarImage
+                  src={user.avatarUrl!}
+                  alt={user.username || user.name}
+                />
                 <AvatarFallback className="rounded-lg">
                   {initials}
                 </AvatarFallback>
@@ -65,8 +71,10 @@ const initials =(user.name||'UE').split(" ").map(value=>value.charAt(0).toUpperC
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatarUrl!} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">                  {initials}
-</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {" "}
+                    {initials}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -78,25 +86,37 @@ const initials =(user.name||'UE').split(" ").map(value=>value.charAt(0).toUpperC
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <LoadingButton
-              loading={isPending}
+                loading={isPending}
                 className="w-full justify-start "
                 variant={"ghost"}
-                onClick={()=>startTransition(()=>navigateOnclickWithPathnameWithoutUpdate('/user-details'))}
+                onClick={() =>
+                  startTransition(() =>
+                    navigateOnclickWithPathnameWithoutUpdate("/user-details"),
+                  )
+                }
                 asChild
               >
-                <DropdownMenuItem >
-                  <BadgeCheck className={cn("text-muted-foreground  size-6",user.isVerified&&'fill-green-500 text-card')} />
+                <DropdownMenuItem>
+                  <BadgeCheck
+                    className={cn(
+                      "text-muted-foreground  size-6",
+                      user.isVerified && "fill-green-500 text-card",
+                    )}
+                  />
                   Account Info
                 </DropdownMenuItem>
               </LoadingButton>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <LogoutButton  className="w-full justify-start "
-                variant={"ghost"} asChild>
+            <LogoutButton
+              className="w-full justify-start "
+              variant={"ghost"}
+              asChild
+            >
               <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
             </LogoutButton>
           </DropdownMenuContent>
         </DropdownMenu>

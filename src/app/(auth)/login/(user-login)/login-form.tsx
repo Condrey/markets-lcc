@@ -23,8 +23,8 @@ import { cn } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
-   const searchParams = useSearchParams();
-    const next = searchParams.get('next') || '/';
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") || "/";
 
   const [isPending, startTransition] = useTransition();
   const [isLinkPending, startLinkTransition] = useTransition();
@@ -38,7 +38,7 @@ export default function LoginForm() {
 
   async function onSubmit(values: LoginValues) {
     startTransition(async () => {
-      const { error } = await loginAction(values!,next);
+      const { error } = await loginAction(values!, next);
       if (error) {
         toast.error("LOGIN ERROR", {
           position: "top-center",

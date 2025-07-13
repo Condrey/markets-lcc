@@ -19,13 +19,13 @@ export function useUpsertMarketMutation() {
         return oldData.map((d) => (d.id === data.id ? data : d));
       });
       toast.success(
-        `Successfully ${!variables.id ? "Created" : "Updated"} the market entry`
+        `Successfully ${!variables.id ? "Created" : "Updated"} the market entry`,
       );
     },
     onError(error, variables, context) {
       console.error(error);
       toast.error(
-        `Failed to ${!variables.id ? "create" : "update"} ${variables.name}`
+        `Failed to ${!variables.id ? "create" : "update"} ${variables.name}`,
       );
     },
   });
@@ -39,7 +39,7 @@ export function useDeleteMarketMutation() {
       await queryClient.cancelQueries({ queryKey });
       queryClient.setQueryData<MarketData[]>(
         queryKey,
-        (oldData) => oldData && oldData.filter((d) => d.id !== data.id)
+        (oldData) => oldData && oldData.filter((d) => d.id !== data.id),
       );
       toast.success(`Successfully deleted ${data.name} market entry`);
     },

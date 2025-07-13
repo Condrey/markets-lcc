@@ -104,7 +104,8 @@ const items: NavMainItem[] = [
     url: "/bulk-notifications",
     icon: MegaphoneIcon,
     items: [],
-  }, {
+  },
+  {
     title: "Markets",
     url: "/markets",
     icon: StoreIcon,
@@ -130,10 +131,10 @@ export function NavMain() {
               <SidebarMenuItem>
                 {!subItems.length ? (
                   <SidebarMenuButton tooltip={item.title} asChild>
-                 <Link href={item.url}>
-                    {Icon && <Icon />}
-                    <span>{item.title}</span>
-                 </Link>
+                    <Link href={item.url}>
+                      {Icon && <Icon />}
+                      <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 ) : (
                   <CollapsibleTrigger asChild>

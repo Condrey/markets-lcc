@@ -35,10 +35,14 @@ export default function ListOfMarkets({ markets }: ListOfMarketsProps) {
           <ButtonAddEditMarket>Create a new one</ButtonAddEditMarket>
         </EmptyContainer>
       ) : (
-        <DataTable columns={useMarketsColumn} data={data} filterColumn={{id:'name'}}>
-            <ButtonAddEditMarket>
-                <PlusIcon/> new
-            </ButtonAddEditMarket>
+        <DataTable
+          columns={useMarketsColumn}
+          data={data}
+          filterColumn={{ id: "name" }}
+        >
+          <ButtonAddEditMarket>
+            <PlusIcon /> new
+          </ButtonAddEditMarket>
         </DataTable>
       )}
     </div>

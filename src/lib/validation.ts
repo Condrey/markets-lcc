@@ -35,7 +35,7 @@ export const loginSchema = z.object({
 export type LoginValues = z.infer<typeof loginSchema>;
 export const staffLoginSchema = z.object({
   ippsNumber: z
-    .number({required_error:'Please input your staff assigned IPPS number.'})
+    .number({ required_error: "Please input your staff assigned IPPS number." })
     .min(1, "Please input your staff assigned IPPS number."),
   password: requiredString
     .min(1, "Password is required to login")
@@ -53,12 +53,13 @@ export const userSchema = z.object({
   id: z.string().optional(),
   username: z.string().optional(),
   email: z.string().email().optional(),
-  telephone: z.string().optional().refine(
-      (val) => !val || /^\+\d{1,3}\d{7,14}$/.test(val),
-      {
-        message: "Telephone number must start with a '+' followed by country code and number.",
-      }
-    ),
+  telephone: z
+    .string()
+    .optional()
+    .refine((val) => !val || /^\+\d{1,3}\d{7,14}$/.test(val), {
+      message:
+        "Telephone number must start with a '+' followed by country code and number.",
+    }),
 });
 export type UserSchema = z.infer<typeof userSchema>;
 
@@ -74,12 +75,14 @@ export const verifyUserSchema = z.object({
     .describe("User username for the user.")
     .regex(/^[a-zA-Z0-9_-]+$/, "Only letters, numbers, - and _ are allowed"),
   email: requiredString.email().min(1, "A working email is required"),
-  telephone: z.string().trim().optional().refine(
-      (val) => !val || /^\+\d{1,3}\d{7,14}$/.test(val),
-      {
-        message: "Telephone number must start with a '+' followed by country code and number.",
-      }
-    ),
+  telephone: z
+    .string()
+    .trim()
+    .optional()
+    .refine((val) => !val || /^\+\d{1,3}\d{7,14}$/.test(val), {
+      message:
+        "Telephone number must start with a '+' followed by country code and number.",
+    }),
   password: requiredString
     .min(8, "Password must be at least 8 characters")
     .describe("Password for the user."),
@@ -100,15 +103,14 @@ export const employeeSchema = z.object({
 });
 export type EmployeeSchema = z.infer<typeof employeeSchema>;
 
-// Market 
+// Market
 export const marketSchema = z.object({
-  id:z.string().optional(),
-  name: requiredString.min(1,'The market name is a requirement.'),
-  location: requiredString.min(1,'The market location is a requirement.'),
-  mapCoordinates: z.string().optional()
-})
-export type MarketSchema = z.infer<typeof marketSchema>
-
+  id: z.string().optional(),
+  name: requiredString.min(1, "The market name is a requirement."),
+  location: requiredString.min(1, "The market location is a requirement."),
+  mapCoordinates: z.string().optional(),
+});
+export type MarketSchema = z.infer<typeof marketSchema>;
 
 // miscellaneous
 export const emailSchema = z.object({ email: z.string().trim().email() });

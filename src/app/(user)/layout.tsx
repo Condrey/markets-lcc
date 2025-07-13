@@ -15,10 +15,12 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
- const { session } = await validateRequest();
-   if (!session){ 
-         const currentPath = encodeURIComponent(`${new URL('/', 'http://localhost').pathname}`);
-     redirect(`/login?next=${currentPath}&user=civilian`);
- }
+  const { session } = await validateRequest();
+  if (!session) {
+    const currentPath = encodeURIComponent(
+      `${new URL("/", "http://localhost").pathname}`,
+    );
+    redirect(`/login?next=${currentPath}&user=civilian`);
+  }
   return <div>{children}</div>;
 }

@@ -22,9 +22,9 @@ import { loginAction } from "./actions";
 import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
-   const searchParams = useSearchParams();
-  const next = searchParams.get('next') || '/';
-  
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") || "/";
+
   const [isPending, startTransition] = useTransition();
   const form = useForm<StaffLoginValues>({
     resolver: zodResolver(staffLoginSchema),

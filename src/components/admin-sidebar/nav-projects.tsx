@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import {
   BetweenHorizonalStartIcon,
   CircleParkingIcon,
   StretchHorizontalIcon,
-  WarehouseIcon
-} from "lucide-react"
+  WarehouseIcon,
+} from "lucide-react";
 
 import {
   SidebarGroup,
@@ -13,34 +13,35 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar
-} from "@/components/ui/sidebar"
-import { NavProjectItem } from "@/lib/types"
- 
-const projects: NavProjectItem[]=[
-   
-  
-    {
-      name: "Lockup",
-      url: "/lockup",
-      icon: WarehouseIcon,
-    },  {
-      name: "Stall",
-      url: "/stall",
-      icon: StretchHorizontalIcon,
-    },{
-      name:'Open Space',
-      url:'/open-space',
-      icon: BetweenHorizonalStartIcon,
-    }, {
-      name: "Parking",
-      url: "/parking",
-      icon: CircleParkingIcon,
-    },
-  ];
+  useSidebar,
+} from "@/components/ui/sidebar";
+import { NavProjectItem } from "@/lib/types";
+
+const projects: NavProjectItem[] = [
+  {
+    name: "Lockup",
+    url: "/lockup",
+    icon: WarehouseIcon,
+  },
+  {
+    name: "Stall",
+    url: "/stall",
+    icon: StretchHorizontalIcon,
+  },
+  {
+    name: "Open Space",
+    url: "/open-space",
+    icon: BetweenHorizonalStartIcon,
+  },
+  {
+    name: "Parking",
+    url: "/parking",
+    icon: CircleParkingIcon,
+  },
+];
 
 export function NavProjects() {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebar();
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -54,11 +55,9 @@ export function NavProjects() {
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
-           
           </SidebarMenuItem>
         ))}
-       
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

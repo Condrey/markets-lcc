@@ -55,9 +55,9 @@ export async function signUp(
     },
   });
 
-const sessionToken = generateSessionToken();
-const session = await createSession(sessionToken, user.id)
-  await  setSessionTokenCookie(sessionToken, session.expiresAt)
+  const sessionToken = generateSessionToken();
+  const session = await createSession(sessionToken, user.id);
+  await setSessionTokenCookie(sessionToken, session.expiresAt);
 
   return redirect("/");
 }

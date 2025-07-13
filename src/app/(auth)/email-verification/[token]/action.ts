@@ -9,7 +9,7 @@ import { sendWelcomeRemarksEmail } from "./email";
 import { generateEmailVerificationToken } from "./token";
 
 export async function resendEmailVerificationLink(
-  email: string
+  email: string,
 ): Promise<{ error: string | null }> {
   try {
     const user = await prisma.user.findUnique({ where: { email } });

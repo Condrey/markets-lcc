@@ -104,7 +104,7 @@ export default function EmailVerificationForm({ email }: { email: string }) {
           <CardFooter
             className={cn(
               "text-xs text-muted-foreground",
-              isRefetching ? "visible" : "invisible"
+              isRefetching ? "visible" : "invisible",
             )}
           >
             <LoaderIcon className="mr-2 size-4 animate-spin" /> checking for

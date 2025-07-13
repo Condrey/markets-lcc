@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionProvider from "./session-provider";
-import {unauthorized} from 'next/navigation'
+import { unauthorized } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,22 +28,26 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {user,session } = await validateRequest()
+  const { user, session } = await validateRequest();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-                  <ReactQueryProvider><SessionProvider value={{session,user}}>{children}</SessionProvider></ReactQueryProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryProvider>
+            <SessionProvider value={{ session, user }}>
+              {children}
+            </SessionProvider>
+          </ReactQueryProvider>
 
-            <Toaster richColors />
-          </ThemeProvider>
+          <Toaster richColors />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -32,21 +32,32 @@ export const useMarketsColumn: ColumnDef<MarketData>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Map Coordinates" />
     ),
-  },{
-    id:'actions',
+  },
+  {
+    id: "actions",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Action" />
     ),
-    cell:({row})=>{
-        const market = row.original
-        return <div className="flex gap-2">
-            <ButtonAddEditMarket marketToEdit={market} variant={'default'} size='icon'>
-                <Edit3Icon/>
-            </ButtonAddEditMarket>
-            <ButtonDeleteMarket market={market} variant={'destructive'} size='icon'>
-                <Trash2Icon/>
-            </ButtonDeleteMarket>
+    cell: ({ row }) => {
+      const market = row.original;
+      return (
+        <div className="flex gap-2">
+          <ButtonAddEditMarket
+            marketToEdit={market}
+            variant={"default"}
+            size="icon"
+          >
+            <Edit3Icon />
+          </ButtonAddEditMarket>
+          <ButtonDeleteMarket
+            market={market}
+            variant={"destructive"}
+            size="icon"
+          >
+            <Trash2Icon />
+          </ButtonDeleteMarket>
         </div>
-    }
-  }
+      );
+    },
+  },
 ];
