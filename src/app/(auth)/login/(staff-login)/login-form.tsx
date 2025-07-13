@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "@/app/generated/prisma";
 import { NumberInput } from "@/components/number-input/number-input";
 import {
   Form,
@@ -14,15 +13,18 @@ import LoadingButton from "@/components/ui/loading-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { staffLoginSchema, StaffLoginValues } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import ky from "ky";
 import { MoveRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { loginAction } from "./actions";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
+   const searchParams = useSearchParams();
+  const next = searchParams.get('next') || '/';
+  
   const [isPending, startTransition] = useTransition();
   const form = useForm<StaffLoginValues>({
     resolver: zodResolver(staffLoginSchema),
@@ -34,14 +36,12 @@ export default function LoginForm() {
 
   async function onSubmit(values: StaffLoginValues) {
     startTransition(async () => {
-      
-       const {error} = await loginAction(values);
+      const { error } = await loginAction(values, next);
 
-       
-     toast.error("IPPS LOGIN ERROR", {
-          position: "top-center",
-          description: `${error}`,
-        });
+      toast.error("IPPS LOGIN ERROR", {
+        position: "top-center",
+        description: `${error}`,
+      });
     });
   }
   return (

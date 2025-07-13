@@ -5,11 +5,12 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
   try {
     console.log("Middleware triggered for:", request.url);
     const { user } = await validateRequest();
-    if (!user && !request.nextUrl.pathname.startsWith("/login")) {
-      const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("next", request.nextUrl.pathname);
-      return NextResponse.redirect(loginUrl);
-    }
+   if ( !request.nextUrl.pathname.startsWith("/login")) {
+  const loginUrl = new URL("/login", request.url);
+  loginUrl.searchParams.set("next", request.nextUrl.pathname + request.nextUrl.search);
+  return NextResponse.redirect(loginUrl);
+}
+
     if (request.method === "GET") {
       const response = NextResponse.next();
       const token = request.cookies.get("oauth_session")?.value ?? null;

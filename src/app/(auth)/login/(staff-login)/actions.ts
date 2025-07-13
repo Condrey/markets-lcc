@@ -9,7 +9,8 @@ import { createSession } from "../../lib/session";
 import { generateSessionToken, setSessionTokenCookie } from "../../lib/tokens";
 
 export async function loginAction(
-  values: StaffLoginValues
+  values: StaffLoginValues,
+  nextUrl?: string
 ): Promise<{ error: string }> {
   const { ippsNumber } = staffLoginSchema.parse(values);
   const response = await ky.post(
@@ -98,8 +99,12 @@ export async function loginAction(
     const sessionToken = generateSessionToken();
     const session = await createSession(sessionToken, existingUser.id);
     await setSessionTokenCookie(sessionToken, session.expiresAt);
+
+    const destination = nextUrl?.startsWith("/") ? nextUrl : "/";
     redirect(
-      existingUser.isVerified ? "/" : `/user-verification/${existingUser.id}`
+      existingUser.isVerified
+        ? destination
+        : `/user-verification/${existingUser.id}`
     );
   }
   const text = await response.text();
