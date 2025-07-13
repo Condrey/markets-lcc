@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCustomSearchParams } from "@/hooks/use-custom-search-param";
 import { useSearchParams } from "next/navigation";
@@ -14,17 +15,13 @@ export default function UserTypes() {
     { user: "staff", label: "Staff Member Login" },
   ];
   return (
-    <Tabs defaultValue={user || "civilian"} className="space-y-6">
+    <Tabs defaultValue={user || "civilian"} className="space-y-6"  >
       <div className="space-y-1">
         <TabsList className="w-full *:flex-1 ">
           {users.map((u) => {
             return (
-              <TabsTrigger
-                value={u.user}
-                key={u.user}
-                onClick={() => updateSearchParamsAndNavigate(`user`, u.user)}
-              >
-                {u.label}
+              <TabsTrigger value={u.user} key={u.user} onClick={() => updateSearchParamsAndNavigate(`user`, u.user)}>
+                               {u.label}
               </TabsTrigger>
             );
           })}
