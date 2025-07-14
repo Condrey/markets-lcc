@@ -115,7 +115,7 @@ export default function FormAddEditRevenuePoint({
             name="subscriptions"
             render={({ field }) => (
               <FormItem>
-                <div className="mb-4">
+                <div className="">
                   <FormLabel className="text-base" required>Subscriptions</FormLabel>
                   <FormDescription>
                     Select the subscriptions that apply.
