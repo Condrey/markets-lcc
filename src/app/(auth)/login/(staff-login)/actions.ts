@@ -74,7 +74,7 @@ export async function loginAction(
               telephone,
               createdAt,
               username,
-              role: Role.MODERATOR,
+              role: Role.ASSOCIATE,
             },
             update: {
               email,
@@ -87,7 +87,6 @@ export async function loginAction(
               telephone,
               createdAt,
               username,
-              role: Role.MODERATOR,
             },
           },
         },

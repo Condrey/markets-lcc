@@ -1,7 +1,7 @@
 import { validateRequest } from "@/auth";
 import { Metadata } from "next";
 import { unauthorized } from "next/navigation";
-import AdminSidebarContainer from "../../../components/admin-sidebar/admin-sidebar-container";
+import AdminSidebarContainer from "../../../components/admin/admin-sidebar/admin-sidebar-container";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { user } = await validateRequest();

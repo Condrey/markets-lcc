@@ -1,5 +1,5 @@
 import { validateRequest } from "@/auth";
-import { AppSidebar } from "@/components/admin-sidebar/admin-sidebar";
+import { AppSidebar } from "@/components/admin/admin-sidebar/admin-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -20,7 +20,7 @@ export default async function Layout({
   const { session } = await validateRequest();
   if (!session) {
     const currentPath = encodeURIComponent(
-      `${new URL("/", "http://localhost").pathname}`,
+      `${new URL("/", "http://localhost").pathname}`
     );
     redirect(`/login?next=${currentPath}&user=staff`);
   }

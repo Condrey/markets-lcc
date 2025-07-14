@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                   .getColumn(filterColumn.id)
                   ?.setFilterValue(event.target.value)
               }
-              className="peer max-w-sm ps-7"
+              className="peer max-w-md ps-7"
             />
           </div>
         )}

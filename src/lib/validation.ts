@@ -1,3 +1,4 @@
+import { RevenuePointType } from "@/app/generated/prisma";
 import { z } from "zod";
 
 const requiredString = z
@@ -26,7 +27,7 @@ export type SignUpValues = z.infer<typeof signUpSchema>;
 export const loginSchema = z.object({
   username: requiredString.min(
     1,
-    "Please input your username or email that you registered with.",
+    "Please input your username or email that you registered with."
   ),
   password: requiredString
     .min(1, "Password is required to login")
@@ -48,7 +49,7 @@ export const userSchema = z.object({
   name: requiredString
     .min(1, "Name must be provided.")
     .transform((val) =>
-      val.trim().replace(/\b\w/g, (char) => char.toUpperCase()),
+      val.trim().replace(/\b\w/g, (char) => char.toUpperCase())
     ),
   id: z.string().optional(),
   username: z.string().optional(),
@@ -67,7 +68,7 @@ export const verifyUserSchema = z.object({
   name: requiredString
     .min(1, "Name must be provided.")
     .transform((val) =>
-      val.trim().replace(/\b\w/g, (char) => char.toUpperCase()),
+      val.trim().replace(/\b\w/g, (char) => char.toUpperCase())
     ),
   id: requiredString.min(1, "User id is missing"),
   username: requiredString
@@ -111,6 +112,29 @@ export const marketSchema = z.object({
   mapCoordinates: z.string().optional(),
 });
 export type MarketSchema = z.infer<typeof marketSchema>;
+
+// Revenue Point Subscription
+export const revenuePointSubscriptionSchema = z.object({
+  id: z.string().optional(),
+  subscriptionName: requiredString.min(1, "A subscription name is required."),
+  amount: z.number({ required_error: "Assign an amount to the subscription." }),
+});
+export type RevenuePointSubscriptionSchema = z.infer<
+  typeof revenuePointSubscriptionSchema
+>;
+
+// Revenue Point
+export const revenuePointSchema = z.object({
+  id: z.string().optional(),
+  revenuePointName: requiredString.min(1, "Give it a unique name"),
+  type: z.nativeEnum(RevenuePointType) .refine((val) => Object.values(RevenuePointType).includes(val), {
+    message: "Please select a valid revenue point type",
+  }),
+  subscriptions: z
+    .array(revenuePointSubscriptionSchema)
+    .min(1, "At least one subscription is required"),
+});
+export type RevenuePointSchema = z.infer<typeof revenuePointSchema>;
 
 // miscellaneous
 export const emailSchema = z.object({ email: z.string().trim().email() });

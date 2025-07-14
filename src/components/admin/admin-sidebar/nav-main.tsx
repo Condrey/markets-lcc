@@ -5,6 +5,7 @@ import {
   CoinsIcon,
   MegaphoneIcon,
   ReceiptIcon,
+  SettingsIcon,
   StoreIcon,
   Users2Icon,
 } from "lucide-react";
@@ -29,10 +30,25 @@ import Link from "next/link";
 
 const items: NavMainItem[] = [
   {
+    title: "Utility",
+    url: "/users",
+    icon: SettingsIcon,
+    isActive: true,
+    items: [
+      {
+        title: "Revenue Point Subscriptions",
+        url: "/utility/revenue-point-subscriptions",
+      },
+      {
+        title: "Revenue Point types",
+        url: "/utility/revenue-point-types",
+      },
+    ],
+  }, {
     title: "Users",
     url: "/users",
     icon: Users2Icon,
-    isActive: true,
+    isActive: false,
     items: [
       {
         title: "All users",

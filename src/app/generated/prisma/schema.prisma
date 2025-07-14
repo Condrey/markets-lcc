@@ -34,6 +34,8 @@ model User {
   emailVerificationTokens EmailVerificationToken[]
   sessions                Session[]
   employees               Employee[]
+  markets                 Market[]
+  userRevenuePoints       UserRevenuePoint[]
 
   @@map("users")
 }
@@ -61,12 +63,11 @@ model Session {
 }
 
 model Employee {
-  id         String  @id @default(uuid())
-  user       User    @relation(fields: [userId], references: [id])
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
   userId     String
-  market     Market? @relation(fields: [marketId], references: [id])
-  marketId   String?
-  ippsNumber String  @unique
+  markets    Market[]
+  ippsNumber String   @unique
 
   @@map("employees")
 }
@@ -78,13 +79,52 @@ model Market {
   mapCoordinates String?
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
-  employees      Employee[]
+  users          User[]
+  managers       Employee[]
 
   @@map("markets")
 }
 
+model UserRevenuePoint {
+  id             String       @id @default(uuid())
+  user           User         @relation(fields: [userId], references: [id])
+  revenuePoint   RevenuePoint @relation(fields: [revenuePointId], references: [id])
+  userId         String
+  revenuePointId String
+
+  @@map("user_revenue_points")
+}
+
+model RevenuePoint {
+  id                String                     @id @default(uuid())
+  revenuePointName  String                     @unique
+  type              RevenuePointType           @default(LOCKUP)
+  subscriptions     RevenuePointSubscription[]
+  userRevenuePoints UserRevenuePoint[]
+
+  @@map("revenue_points")
+}
+
+model RevenuePointSubscription {
+  id               String        @id @default(uuid())
+  subscriptionName String        @unique
+  amount           Float
+  revenuePoint     RevenuePoint? @relation(fields: [revenuePointId], references: [id])
+  revenuePointId   String?
+
+  @@map("revenue_point_subscriptions")
+}
+
+enum RevenuePointType {
+  LOCKUP
+  OPEN_SPACE
+  STALL
+}
+
 enum Role {
   USER
+  SUPER_ADMIN
   ADMIN
   MODERATOR
+  ASSOCIATE
 }

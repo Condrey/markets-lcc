@@ -35,7 +35,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useCustomSearchParams } from "@/hooks/use-custom-search-param";
-import { cn } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { useTransition } from "react";
 
@@ -52,11 +52,7 @@ export function NavUser() {
   ];
 
   if (!user) return null;
-  const initials = (user.name || "UE")
-    .split(" ")
-    .slice(0, 2)
-    .map((value) => value.charAt(0).toUpperCase())
-    .join(".");
+  const initials = getInitials(user.name);
   return (
     <SidebarMenu>
       <SidebarMenuItem>

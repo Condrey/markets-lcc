@@ -9,7 +9,14 @@ import { userSchema, UserSchema } from "@/lib/validation";
 import { cache } from "react";
 
 async function allUsers() {
-  return await prisma.user.findMany({ orderBy: { name: "asc" } });
+  const { user: currentUser } = await validateRequest();
+  const isSuperAdmin =
+    !!currentUser && myPrivileges[currentUser.role].includes(Role.SUPER_ADMIN);
+
+  return await prisma.user.findMany({
+    where: { role: !isSuperAdmin ? { not: Role.SUPER_ADMIN } : {} },
+    orderBy: { name: "asc" },
+  });
 }
 export const getAllUsers = cache(allUsers);
 

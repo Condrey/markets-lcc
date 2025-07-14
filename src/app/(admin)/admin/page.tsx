@@ -1,4 +1,4 @@
-import AdminSidebarContainer from "@/components/admin-sidebar/admin-sidebar-container";
+import AdminSidebarContainer from "@/components/admin/admin-sidebar/admin-sidebar-container";
 
 export default function Page() {
   return (

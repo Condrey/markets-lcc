@@ -3,10 +3,10 @@
 import { StoreIcon } from "lucide-react";
 import * as React from "react";
 
-import { MarketSwitcher } from "@/components/admin-sidebar/market-switcher";
-import { NavMain } from "@/components/admin-sidebar/nav-main";
-import { NavProjects } from "@/components/admin-sidebar/nav-projects";
-import { NavUser } from "@/components/admin-sidebar/nav-user";
+import { MarketSwitcher } from "@/components/admin/admin-sidebar/market-switcher";
+import { NavMain } from "@/components/admin/admin-sidebar/nav-main";
+import { NavProjects } from "@/components/admin/admin-sidebar/nav-projects";
+import { NavUser } from "@/components/admin/admin-sidebar/nav-user";
 import {
   Sidebar,
   SidebarContent,
