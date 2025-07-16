@@ -1,96 +1,183 @@
 "use client";
 
-import * as React from "react";
-import { ChevronsUpDown, Plus } from "lucide-react";
+import { ChevronsUpDown, Loader2Icon, Plus, StoreIcon } from "lucide-react";
 
+import { Role } from "@/app/generated/prisma";
+import { useSession } from "@/app/session-provider";
+import FormAddEditMarket from "@/components/admin/market/form-add-edit-market";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import LoadingButton from "@/components/ui/loading-button";
+import { SidebarMenuButton, useSidebar } from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useCustomSearchParams } from "@/hooks/use-custom-search-param";
+import { PARAM_NAME_MARKET } from "@/lib/constants";
+import { myPrivileges } from "@/lib/enums";
+import { cn } from "@/lib/utils";
+import { useSearchParams } from "next/navigation";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
+import { useMarketQuery } from "../market/query";
 
-export function MarketSwitcher({
-  markets,
-}: {
-  markets: {
-    name: string;
-    logo: React.ElementType;
-    location: string;
-  }[];
-}) {
+interface MarketSwitcherProps {
+  pathname?: string;
+}
+
+export default function MarketSwitcher({ pathname }: MarketSwitcherProps) {
+  const [openAddItemDialog, setOpenAddItemDialog] = useState(false);
+
+  const { user } = useSession();
+  const canAddMarkets = !!user && myPrivileges[user.role].includes(Role.ADMIN);
+  const { navigateOnclick } = useCustomSearchParams();
+  const [isPending, startTransition] = useTransition();
+
+  const { data, status, isFetching, refetch, error } = useMarketQuery();
+
   const { isMobile } = useSidebar();
-  const [activeMarket, setActiveMarket] = React.useState(markets[0]);
 
-  if (!activeMarket) {
-    return null;
+  const searchParams = useSearchParams();
+
+  const searchParamMarket = searchParams.get(PARAM_NAME_MARKET) ?? undefined;
+
+  if (status === "pending") {
+    return <MarketSwitcherFallback />;
   }
+  if (status === "error") {
+    console.error(error);
+    toast.error("Alert", {
+      description: "Error occurred while fetching academic markets.",
+    });
+    return (
+      <LoadingButton
+        loading={isFetching}
+        variant={"destructive"}
+        onClick={() => refetch()}
+      >
+        Refetch Markets
+      </LoadingButton>
+    );
+  }
+  if (status === "success" && !data.length) {
+    return;
+  }
+  const activeMarket = data.find(
+    (l) => l.name.toLowerCase() === searchParamMarket?.toLowerCase()
+  );
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                <activeMarket.logo className="size-4" />
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuButton  size="lg" className="w-full flex ">
+            <div className="flex flex-row  h-fit w-full flex-1  max-w-sm justify-between items-center px-4 py-2 gap-2 space-x-2">
+              <div
+                className={cn(
+                  "flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground",
+                  
+                )}
+              >
+                {!isPending?<StoreIcon className="size-4" />:<Loader2Icon className="size-4 animate-spin" />}
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">
-                  {activeMarket.name}
+              <div className=" flex flex-col flex-1  text-left text-sm leading-tight">
+                <span className="truncate font-semibold">
+                  {!activeMarket ? "All markets" : activeMarket.name}
                 </span>
-                <span className="truncate text-xs">
-                  {activeMarket.location}
+                <span className="truncate text-xs text-muted-foreground">
+                  {!activeMarket
+                    ? "Showing all markets"
+                    : activeMarket.location}
                 </span>
               </div>
               <ChevronsUpDown className="ml-auto" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            align="start"
-            side={isMobile ? "bottom" : "right"}
-            sideOffset={4}
+            </div>
+          </SidebarMenuButton>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          className="w-fit min-w-56 rounded-lg"
+          align="start"
+          side={isMobile ? "bottom" : "right"}
+          sideOffset={4}
+        >
+          <DropdownMenuLabel className="text-xs text-muted-foreground">
+            LCC markets
+          </DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={async () =>
+              startTransition(() =>
+                navigateOnclick(PARAM_NAME_MARKET, "", pathname)
+              )
+            }
+            className="gap-2 p-2"
           >
-            <DropdownMenuLabel className="text-muted-foreground text-xs">
-              Markets
-            </DropdownMenuLabel>
-            {markets.map((market, index) => (
+            <div className="flex size-6 items-center justify-center rounded-sm border">
+              <StoreIcon className="size-4 shrink-0" />
+            </div>
+            All markets
+          </DropdownMenuItem>
+          {data.map((item) => {
+            return (
               <DropdownMenuItem
-                key={market.name}
-                onClick={() => setActiveMarket(market)}
+                key={item.id}
+                onClick={async () =>
+                  startTransition(() =>
+                    navigateOnclick(PARAM_NAME_MARKET, item.name, pathname)
+                  )
+                }
                 className="gap-2 p-2"
               >
-                <div className="flex size-6 items-center justify-center rounded-md border">
-                  <market.logo className="size-3.5 shrink-0" />
+                <div className="flex size-6 items-center justify-center rounded-sm border">
+                  <StoreIcon className="size-4 shrink-0" />
                 </div>
-                {market.name}
+                {item.name}
               </DropdownMenuItem>
-            ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className="gap-2 p-2">
-              <div className="flex size-6 items-center justify-center rounded-md border bg-transparent">
+            );
+          })}
+          <DropdownMenuSeparator />
+          {canAddMarkets && (
+            <DropdownMenuItem
+              className="gap-2 p-2"
+              onClick={() => setOpenAddItemDialog(true)}
+            >
+              <div className="flex size-6 items-center justify-center">
                 <Plus className="size-4" />
               </div>
-              <div className="text-muted-foreground font-medium">
+              <div className="font-medium text-muted-foreground">
                 Add market
               </div>
             </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <FormAddEditMarket
+        open={openAddItemDialog}
+        setOpen={setOpenAddItemDialog}
+      />
+    </>
+  );
+}
+
+export function MarketSwitcherFallback() {
+  return (
+    <Button
+      size="lg"
+      variant={"outline"}
+      className="flex h-fit w-full max-w-sm justify-between px-4 py-2"
+    >
+      <Skeleton className="flex aspect-square size-8 rounded-lg bg-sidebar-primary">
+        <Skeleton className="size-4" />
+      </Skeleton>
+      <div className="grid flex-1 space-y-1">
+        <Skeleton className="h-5 w-1/4" />
+        <Skeleton className="h-4 w-3/4" />
+      </div>
+      <Skeleton className="ml-auto size-6" />
+    </Button>
   );
 }

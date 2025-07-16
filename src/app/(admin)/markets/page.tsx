@@ -2,7 +2,7 @@ import AdminSidebarContainer from "@/components/admin/admin-sidebar/admin-sideba
 import DataTableLoadingSkeleton from "@/components/data-table/data-table-loading-skeleton";
 import { Metadata } from "next";
 import { Suspense } from "react";
-import { getAllMarkets } from "./action";
+import { getAllMarkets } from "../../../components/admin/market/action";
 import ListOfMarkets from "./list-of-markets";
 
 export const metadata: Metadata = {

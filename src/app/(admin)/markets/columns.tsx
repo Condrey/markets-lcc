@@ -3,9 +3,9 @@
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { MarketData } from "@/lib/types";
 import { ColumnDef } from "@tanstack/react-table";
-import ButtonAddEditMarket from "./button-add-edit-market";
-import { Edit2Icon, Edit3Icon, Trash2Icon } from "lucide-react";
-import ButtonDeleteMarket from "./button-delete-market";
+import { Edit3Icon, Trash2Icon } from "lucide-react";
+import ButtonAddEditMarket from "../../../components/admin/market/button-add-edit-market";
+import ButtonDeleteMarket from "../../../components/admin/market/button-delete-market";
 
 export const useMarketsColumn: ColumnDef<MarketData>[] = [
   {

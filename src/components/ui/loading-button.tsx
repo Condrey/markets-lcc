@@ -19,7 +19,7 @@ export default function LoadingButton({
       className={cn("flex items-center gap-2 ", className)}
       {...props}
     >
-      <span className="flex items-center">
+      <span className="flex items-center w-full">
         {loading && <Loader2 className="size-5 animate-spin" />}
         <span className={cn("inline-flex", loading && "[&_svg]:hidden")}>
           {props.children}
