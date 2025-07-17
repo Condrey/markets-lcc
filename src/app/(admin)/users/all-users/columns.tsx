@@ -4,14 +4,12 @@ import { Role } from "@/app/generated/prisma";
 import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { userTypes } from "@/lib/enums";
+import { revenuePointTypes, userTypes } from "@/lib/enums";
 import { UserData } from "@/lib/types";
 import { getGradientWithTextColor, getInitials } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit3Icon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
-import ButtonAddEditUser from "./button-add-edit-user";
-import ButtonDeleteUser from "./button-delete-user";
+import DropdownMenuUser from "./drop-down-menu-user";
 
 export const useUsersColumn: ColumnDef<UserData>[] = [
   {
@@ -73,13 +71,54 @@ export const useUsersColumn: ColumnDef<UserData>[] = [
       const Icon = icon;
       return (
         <Badge
-          variant={user.role === Role.ADMIN ? "destructive" :user.role===Role.MODERATOR?'secondary':
-            user.role===Role.ASSOCIATE?'default' : "outline"}
+          variant={
+            user.role === Role.ADMIN
+              ? "destructive"
+              : user.role === Role.MODERATOR
+              ? "secondary"
+              : user.role === Role.ASSOCIATE
+              ? "default"
+              : "outline"
+          }
           className="inline-flex place-items-start place-content-start w-full"
         >
           <Icon className="w-4 h-4 shrink-0 flex-none" />
           {role}
         </Badge>
+      );
+    },
+  },
+  {
+    accessorKey: "userRevenuePoints",
+    header: ({ column }) => (
+      <DataTableColumnHeader
+        column={column}
+        title="User Assigned Revenue Points"
+      />
+    ),
+    cell: ({ row }) => {
+      const userRevenuePoints = row.original.userRevenuePoints || [];
+      return (
+        <div>
+          {!userRevenuePoints.length ? (
+            <span className="italic text-muted-foreground">
+              --No revenue pts assigned--
+            </span>
+          ) : (
+            <div className="flex gap-2 flex-wrap">
+              {userRevenuePoints?.map((rp) => {
+                const { icon } = revenuePointTypes[rp.revenuePoint.type];
+                const Icon = icon;
+                return (
+                  <Badge key={rp.revenuePointId} variant={"secondary"}>
+                    <Icon className="size-4" />
+                    <span>{rp.revenuePoint.revenuePointName}</span>
+                  </Badge>
+                );
+              })}
+            </div>
+          )}
+        </div>
       );
     },
   },
@@ -90,16 +129,7 @@ export const useUsersColumn: ColumnDef<UserData>[] = [
     ),
     cell: ({ row }) => {
       const user = row.original;
-      return (
-        <div className="flex gap-2">
-          <ButtonAddEditUser userToEdit={user} variant={"default"} size="icon">
-            <Edit3Icon />
-          </ButtonAddEditUser>
-          <ButtonDeleteUser user={user} variant={"destructive"} size="icon">
-            <Trash2Icon />
-          </ButtonDeleteUser>
-        </div>
-      );
+      return <DropdownMenuUser user={user} />;
     },
   },
 ];

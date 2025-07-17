@@ -27,16 +27,16 @@ export async function upsertUser(user: UserSchema) {
 
   if (!isAuthorized) throw new Error("Unauthorized");
 
-  const { id, name, email, telephone, username } = userSchema.parse(user);
+  const { id, name, email, telephone, username ,role} = userSchema.parse(user);
   return await prisma.user.upsert({
     where: { id },
     create: {
       name,
       email: email!,
       telephone,
-      username,
+      username,role
     },
-    update: { name, email: email!, telephone, username },
+    update: { name, email: email!, telephone, username,role },
     // include: userDataInclude,
   });
 }

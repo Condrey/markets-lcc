@@ -44,7 +44,7 @@ export default function ListOfRevenuePointSubscriptions({
         <DataTable
           columns={useRevenuePointSubscriptionsColumn}
           data={data}
-          filterColumn={{ id: "name", label: "subscription" }}
+          filterColumn={{ id: "subscriptionName", label: "subscription" }}
         >
           <ButtonAddEditRevenuePointSubscription>
             <PlusIcon /> new

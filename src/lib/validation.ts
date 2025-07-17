@@ -1,4 +1,4 @@
-import { RevenuePointType } from "@/app/generated/prisma";
+import { RevenuePointType, Role } from "@/app/generated/prisma";
 import { z } from "zod";
 
 const requiredString = z
@@ -53,6 +53,7 @@ export const userSchema = z.object({
     ),
   id: z.string().optional(),
   username: z.string().optional(),
+  role: z.nativeEnum(Role).optional(),
   email: z.string().email().optional(),
   telephone: z
     .string()

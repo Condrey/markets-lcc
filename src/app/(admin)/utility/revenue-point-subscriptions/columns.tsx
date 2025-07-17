@@ -5,8 +5,8 @@ import { RevenuePointSubscriptionData } from "@/lib/types";
 import { formatLocalCurrency } from "@/lib/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit3Icon, Trash2Icon } from "lucide-react";
-import ButtonAddEditRevenuePointSubscription from "../../../../components/admin/revenue-point-subscription/button-add-edit-revenue-point-subscription";
-import ButtonDeleteRevenuePointSubscription from "../../../../components/admin/revenue-point-subscription/button-delete-revenue-point-subscription";
+import ButtonAddEditRevenuePointSubscription from "@/components/admin/revenue-point-subscription/button-add-edit-revenue-point-subscription";
+import ButtonDeleteRevenuePointSubscription from "@/components/admin/revenue-point-subscription/button-delete-revenue-point-subscription";
 
 export const useRevenuePointSubscriptionsColumn: ColumnDef<RevenuePointSubscriptionData>[] =
   [
